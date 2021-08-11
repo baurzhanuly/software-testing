@@ -1,18 +1,24 @@
 package com.example.softwaretesting.customer;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 @Entity
+@JsonIgnoreProperties(allowGetters = true)
 public class Customer {
 
     @Id
     private UUID id;
 
     @NotBlank
+    @Column(nullable = false)
     private String name;
 
     @NotBlank
+    @Column(nullable = false, unique = true)
     private String phoneNumber;
 
     public Customer() {
@@ -46,5 +52,14 @@ public class Customer {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }
